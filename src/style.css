@@ -1,0 +1,32 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}
+
+.marker {
+  padding: 0.5rem;
+  background: black;
+  transition: all 0.3s ease-out;
+  position: relative;
+  width: 100px;
+  border-radius: 5px;
+}
+
+
+.label-class {
+  width: 50px; 
+  height: 20px;
+  border: 1px solid #eb3a44;
+  border-radius: 5px;
+  background: #fee1d7;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #eb3a44;
+}
