@@ -19,7 +19,7 @@ function Render() {
             mapContainerClassName="map-container"
             center={{ lat: 40.57852755, lng: -74.3276703 }}
             zoom={13}
-            options={{mapId: "eb8c2dd36763382b"}}
+            options={{mapId: process.env.REACT_APP_MAP_ID}}
             onLoad={console.log("loaded")}
           >
           <FetchMarks />

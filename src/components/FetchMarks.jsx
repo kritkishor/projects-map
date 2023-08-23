@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import { MarkerF } from "@react-google-maps/api";
+import Papa from "papaparse";
+
 import "../style.css";
 var coordinates = [];
 
 function FetchMarks() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    fetch("https://sheetdb.io/api/v1/htih9jdlm9qhk")
-      .then((response) => response.json())
-      .then((data) => setData(data));
+    Papa.parse(
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSrxMVx-5wgzKZxsZOlsl9H1lUfVpoq6eHrtllFWrZ0v1FyKJYbXHiIv7LklNGt-WBabjbMRYybrRRO/pub?output=csv",
+      {
+        download: true,
+        header: true,
+        complete: (results) => {
+          setData(results.data);
+        },
+      }
+    );
   }, []);
 
   data?.map(({ label, latitude, longitude }) =>
