@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { MarkerF } from "@react-google-maps/api";
-import Papa from "papaparse";
 
-import "../style.css";
+import Papa from "papaparse";
+import Mark from "./Mark";
+
 var coordinates = [];
 
 function FetchMarks() {
@@ -21,27 +21,18 @@ function FetchMarks() {
     );
   }, []);
 
-  data?.map(({ label, latitude, longitude }) =>
+  data?.map(({ label, latitude, longitude, address }) =>
     coordinates.push({
       id: label,
       position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+      address: address,
     })
   );
 
-  return coordinates?.map(({ id, position }) => (
-    <MarkerF
-      key={id}
-      position={position}
-      label={{
-        className: "label-class",
-        text: id,
-        anchor: new window.google.maps.Point(18, 12),
-        labelInBackground: true,
-      }}
-      
-    />
-    
-  ));
+  return (
+    <Mark data={coordinates} />
+  )
+  
 }
 
 export default FetchMarks;

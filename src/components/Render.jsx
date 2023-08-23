@@ -1,6 +1,6 @@
 import { GoogleMap,useJsApiLoader} from "@react-google-maps/api";
 import FetchMarks from "./FetchMarks";
-
+import "../style.css" ;
 // Function to render Map
 function Render() {
   
@@ -16,6 +16,7 @@ function Render() {
           <h1>Loading...</h1>
         ) : (
           <GoogleMap
+            id="map"
             mapContainerClassName="map-container"
             center={{ lat: 40.57852755, lng: -74.3276703 }}
             zoom={13}
