@@ -3,9 +3,10 @@ import FetchMarks from "./FetchMarks";
 
 // Function to render Map
 function Render() {
+  
   // Loading Google Maps
     const { isLoaded } = useJsApiLoader({
-      googleMapsApiKey: "AIzaSyAYSixx70Xu9wpf2DXD_eoaTUIQJYCsZlA",
+      googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     });
   
     
