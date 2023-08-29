@@ -6,6 +6,7 @@
 .map-container {
   height: 100%;
   width: 100%;
+  
 }
 
 .marker {
@@ -19,7 +20,7 @@
 
 
 .label-class {
-  width: 50px; 
+  width: 10px; 
   height: 20px;
   border: 1px solid #eb3a44;
   border-radius: 5px;
@@ -29,4 +30,14 @@
   font-weight: bold;
   font-size: 14px;
   color: #eb3a44;
+}
+
+.export-button{
+  background: #e9420a;
+  margin-left: 50%;
+}
+
+.side-bar{
+  width: 10%;
+  position: absolute;
 }
