@@ -5,6 +5,8 @@ import Papa from "papaparse";
 
 
 let coordinates = [];
+let labels = [];
+
 const center = { lat: 40.7831, lng: -73.9712 };
 const markers = [];
 const out = [];
@@ -61,7 +63,7 @@ function ExportData() {
   
   
     fetch(
-      "https://script.google.com/macros/s/AKfycbyUrQBU7GRRx2w6dwwXnQRSsd5_prDQnYtakOlPrmIkp0W1YGXghwaqkY8ED81YdMCnIg/exec",
+      "https://script.google.com/macros/s/AKfycbxxRD_QK142cKW1ajtJfELlFqZWGKC4PzE7E06yvT9BST_kw-KBZ1c75xQa1L8XktJJyA/exec",
       {
         method: "POST",
         body: JSON.stringify(outputData),
@@ -131,7 +133,8 @@ function Mark({map}){
 
     // marker
     const marker = new window.google.maps.Marker({
-      position: coordinates[i],
+      position: coordinates[i], 
+      label: labels[i],
       map: map
     });
     markers.push(marker);
@@ -180,12 +183,16 @@ function FetchMarks() {
 
 
   // After data is downloaded, place it in the coordinates array
-  data?.map(({latitude, longitude }) =>
+  data?.map(({latitude, longitude}) => 
     coordinates.push({
       lat: parseFloat(latitude),
-      lng: parseFloat(longitude)
-    })
-  );
+      lng: parseFloat(longitude),
+    }),
+   
+);
+data?.map(({label}) => 
+    labels.push(label)
+);
 
 }
 
