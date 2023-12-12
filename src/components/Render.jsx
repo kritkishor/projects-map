@@ -134,7 +134,10 @@ function Mark({map}){
     // marker
     const marker = new window.google.maps.Marker({
       position: coordinates[i], 
-      label: labels[i],
+      label: {
+        text: labels[i],
+        fontSize: "0px"
+      },
       map: map
     });
     markers.push(marker);
@@ -147,7 +150,7 @@ function Mark({map}){
     markers[i].addListener("click",() => {
       setCount(count+1);
       setPos(markers[i].getPosition());
-      setLabel(markers[i].getLabel())
+      setLabel(markers[i].getLabel().text)
       infowindow.setContent(count.toString());
       infowindow.open({
         anchor: markers[i],
