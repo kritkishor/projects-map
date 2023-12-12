@@ -63,7 +63,7 @@ function ExportData() {
   
   
     fetch(
-      "https://script.google.com/macros/s/AKfycbxxRD_QK142cKW1ajtJfELlFqZWGKC4PzE7E06yvT9BST_kw-KBZ1c75xQa1L8XktJJyA/exec",
+      "https://script.google.com/macros/s/AKfycby-4PMciPtldUcmSybbFGXFnKt6xs_o83YxGLMg1IfFSIk95V5awivOEZ0aZo_BFbDc9A/exec",
       {
         method: "POST",
         body: JSON.stringify(outputData),
@@ -116,7 +116,7 @@ function Mark({map}){
   // states of count and positions clicked (to export)
   const [count,setCount] = useState(0);
   const [pos,setPos] = useState();
-  
+  const [label,setLabel] = useState();
   const geocoder = new window.google.maps.Geocoder();
 
   useEffect(() => {
@@ -124,7 +124,7 @@ function Mark({map}){
       .geocode({location: pos})
       .then((response) => {
         let address = response.results[0].formatted_address;
-        outputData.push(address);
+        outputData.push([address,label]);
         });
 
   });
@@ -147,7 +147,7 @@ function Mark({map}){
     markers[i].addListener("click",() => {
       setCount(count+1);
       setPos(markers[i].getPosition());
-      
+      setLabel(markers[i].getLabel())
       infowindow.setContent(count.toString());
       infowindow.open({
         anchor: markers[i],
