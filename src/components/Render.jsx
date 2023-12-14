@@ -6,6 +6,7 @@ import Papa from "papaparse";
 
 let coordinates = [];
 let labels = [];
+let jobIds = [];
 
 const center = { lat: 40.7831, lng: -73.9712 };
 const markers = [];
@@ -63,7 +64,7 @@ function ExportData() {
   
   
     fetch(
-      "https://script.google.com/macros/s/AKfycby-4PMciPtldUcmSybbFGXFnKt6xs_o83YxGLMg1IfFSIk95V5awivOEZ0aZo_BFbDc9A/exec",
+      "https://script.google.com/macros/s/AKfycbz2yYTPZ3uUqGsdNWoDdTp3KDh8kgUiP27pZZyOzgf_XBApmiUzFP_G-IbbLPnWQRSWjg/exec",
       {
         method: "POST",
         body: JSON.stringify(outputData),
@@ -117,6 +118,8 @@ function Mark({map}){
   const [count,setCount] = useState(0);
   const [pos,setPos] = useState();
   const [label,setLabel] = useState();
+  const [jobId,setJobId] = useState();
+
   const geocoder = new window.google.maps.Geocoder();
 
   useEffect(() => {
@@ -124,7 +127,7 @@ function Mark({map}){
       .geocode({location: pos})
       .then((response) => {
         let address = response.results[0].formatted_address;
-        outputData.push([address,label]);
+        outputData.push([label,jobId,address]);
         });
 
   });
@@ -134,10 +137,8 @@ function Mark({map}){
     // marker
     const marker = new window.google.maps.Marker({
       position: coordinates[i], 
-      label: {
-        text: labels[i],
-        fontSize: "0px"
-      },
+      label: labels[i],
+      id: jobIds[i],
       map: map
     });
     markers.push(marker);
@@ -150,7 +151,8 @@ function Mark({map}){
     markers[i].addListener("click",() => {
       setCount(count+1);
       setPos(markers[i].getPosition());
-      setLabel(markers[i].getLabel().text)
+      setLabel(markers[i].getLabel());
+      setJobId(markers[i].id);
       infowindow.setContent(count.toString());
       infowindow.open({
         anchor: markers[i],
@@ -197,5 +199,8 @@ data?.map(({label}) =>
     labels.push(label)
 );
 
+data?.map(({jobId}) => 
+    jobIds.push(jobId)
+);
 }
 
